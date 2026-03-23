@@ -1,0 +1,242 @@
+.pokemonDetail {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 32px 16px 48px;
+  animation: pageIn 0.4s ease both;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pokemonDetail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  margin-bottom: 24px;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+  cursor: pointer;
+}
+
+.pokemonDetail__back:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  transform: translateX(-3px);
+}
+
+.pokemonDetail__card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* Banner hero coloreado por tipo */
+.pokemonDetail__hero {
+  background: linear-gradient(145deg, #e53935 0%, #b71c1c 100%);
+  padding: 32px 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pokemonDetail__heroBg {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  bottom: -80px;
+  right: -60px;
+}
+
+/* Cabecera: número + nombre */
+.pokemonDetail__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.pokemonDetail__id {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: monospace;
+  font-weight: 800;
+}
+
+.pokemonDetail__name {
+  font-size: 30px;
+  font-weight: 800;
+  color: #fff;
+  text-transform: capitalize;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Badges de tipos dentro del hero */
+.pokemonDetail__types {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.pokemonDetail__type {
+  padding: 5px 16px;
+  border-radius: 20px;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: capitalize;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(4px);
+}
+
+.pokemonDetail__image {
+  width: 210px;
+  height: 210px;
+  object-fit: contain;
+  margin: 0 auto;
+  filter: drop-shadow(0 10px 28px rgba(0, 0, 0, 0.3));
+  position: relative;
+  z-index: 1;
+}
+
+/* Cuerpo blanco con info, stats, habilidades */
+.pokemonDetail__body {
+  padding: 28px 32px 36px;
+}
+
+/* Altura y peso */
+.pokemonDetail__info {
+  display: flex;
+  gap: 0;
+  justify-content: center;
+  margin-bottom: 28px;
+  background: #f8fafc;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.pokemonDetail__infoItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 10px;
+}
+
+.pokemonDetail__infoItem:not(:last-child) {
+  border-right: 1px solid #e2e8f0;
+}
+
+.pokemonDetail__infoLabel {
+  font-size: 10px;
+  color: #94a3b8;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.pokemonDetail__infoValue {
+  font-size: 20px;
+  color: #1a202c;
+  font-weight: 800;
+}
+
+/* Secciones (Estadísticas, Habilidades) */
+.pokemonDetail__section {
+  margin-bottom: 26px;
+}
+
+.pokemonDetail__sectionTitle {
+  font-size: 14px;
+  font-weight: 800;
+  color: #cc0000;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f0f0f0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Fila de estadística */
+.pokemonDetail__stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.pokemonDetail__statName {
+  width: 80px;
+  font-size: 11px;
+  color: #718096;
+  font-weight: 800;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.pokemonDetail__statValue {
+  width: 32px;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 800;
+  color: #1a202c;
+  flex-shrink: 0;
+}
+
+.pokemonDetail__statBar {
+  flex: 1;
+  height: 7px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pokemonDetail__statFill {
+  height: 100%;
+  background: linear-gradient(to right, #cc0000, #ff5555);
+  border-radius: 4px;
+  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Lista de habilidades */
+.pokemonDetail__abilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pokemonDetail__ability {
+  background: #f1f5f9;
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: capitalize;
+  border: 1px solid #e2e8f0;
+  transition: background 0.18s, color 0.18s;
+}
+
+.pokemonDetail__ability:hover {
+  background: #e2e8f0;
+  color: #1a202c;
+}

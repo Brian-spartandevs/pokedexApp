@@ -1,0 +1,58 @@
+/* =============================================
+   Variables y reset base
+   ============================================= */
+:root {
+  --color-primary: #e53935;
+  --color-primary-dark: #b71c1c;
+  --color-bg: #0d1117;
+  --color-screen: #1a1a2e;
+  --color-text: #1a202c;
+  --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.2);
+  --shadow-card-hover: 0 18px 45px rgba(0, 0, 0, 0.38);
+  --radius-card: 20px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Nunito', 'Segoe UI', Tahoma, sans-serif;
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(ellipse at 15% 50%, rgba(204, 0, 0, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 10%, rgba(26, 26, 46, 0.9) 0%, transparent 55%);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+main {
+  min-height: calc(100vh - 70px);
+}

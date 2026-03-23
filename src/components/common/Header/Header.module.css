@@ -1,0 +1,100 @@
+.header {
+  background: linear-gradient(135deg, #cc0000 0%, #8b0000 100%);
+  padding: 0 24px;
+  border-bottom: 4px solid #0d1117;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.header__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Grupo de LEDs decorativos */
+.header__leds {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.header__leds_small {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.header__led {
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+/* LED grande azul — icónico del Pokédex */
+.header__led--blue {
+  width: 46px;
+  height: 46px;
+  background: radial-gradient(circle at 35% 30%, #90caf9, #1565c0);
+  box-shadow:
+    0 0 10px rgba(21, 101, 192, 0.9),
+    0 0 28px rgba(21, 101, 192, 0.45),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.header__led--red {
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 35% 35%, #ff8a80, #b71c1c);
+}
+
+.header__led--yellow {
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 35% 35%, #fff176, #f57f17);
+}
+
+.header__led--green {
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 35% 35%, #a5d6a7, #2e7d32);
+}
+
+/* Separador vertical */
+.header__divider {
+  width: 2px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 1px;
+}
+
+.header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1;
+}
+
+.header__title {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.header__subtitle {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
