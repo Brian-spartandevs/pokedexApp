@@ -1,8 +1,11 @@
+import { Typography, Chip, Box } from '@mui/material';
 import styles from './PokemonCard.module.css';
 import { formatPokemonId, formatTypeColor } from '../../utils/formatters';
 
 /**
  * Tarjeta de Pokémon para el listado principal.
+ * Integración con Material UI v6 manteniendo estilos CSS propios.
+ * 
  * Responsabilidad: mostrar datos básicos del Pokémon y disparar el evento de clic.
  *
  * @param {{ pokemon: Object, onClick: Function }}
@@ -31,7 +34,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
       aria-label={`Ver detalles de ${name}`}
       style={{ '--type-color': primaryTypeColor }}
     >
-      {/* Cabecera coloreada por tipo primario */}
+      {/* Cabecera coloreada por tipo primario - ✅ MANTIENE CSS */}
       <div
         className={styles.pokemonCard__header}
         style={{
@@ -51,35 +54,67 @@ const PokemonCard = ({ pokemon, onClick }) => {
       </div>
 
       {/* Cuerpo blanco con datos */}
-      <div className={styles.pokemonCard__body}>
-        <span className={styles.pokemonCard__id}>{formatPokemonId(id)}</span>
-        <h3 className={styles.pokemonCard__name}>{name}</h3>
+      <Box className={styles.pokemonCard__body}>
+        <Typography 
+          component="span" 
+          className={styles.pokemonCard__id}
+        >
+          {formatPokemonId(id)}
+        </Typography>
 
-        <div className={styles.pokemonCard__types}>
+        <Typography 
+          variant="h6" 
+          component="h3" 
+          className={styles.pokemonCard__name}
+        >
+          {name}
+        </Typography>
+
+        <Box className={styles.pokemonCard__types}>
           {types.map((type) => (
-            <span
+            <Chip
               key={type}
+              label={type}
+              size="small"
               className={styles.pokemonCard__type}
-              style={{ backgroundColor: formatTypeColor(type) }}
-            >
-              {type}
-            </span>
+              sx={{
+                backgroundColor: formatTypeColor(type),
+                color: 'white',
+                fontWeight: 700,
+                textTransform: 'capitalize',
+                fontSize: '10px',
+                height: 'auto',
+                '& .MuiChip-label': {
+                  padding: '3px 10px',
+                },
+              }}
+            />
           ))}
-        </div>
+        </Box>
 
         {stats?.hp !== undefined && (
           <div className={styles.pokemonCard__stat}>
-            <span className={styles.pokemonCard__statLabel}>HP</span>
+            <Typography 
+              component="span" 
+              className={styles.pokemonCard__statLabel}
+            >
+              HP
+            </Typography>
             <div className={styles.pokemonCard__statBar}>
               <div
                 className={styles.pokemonCard__statFill}
                 style={{ width: `${Math.min((stats.hp / 255) * 100, 100)}%` }}
               />
             </div>
-            <span className={styles.pokemonCard__statValue}>{stats.hp}</span>
+            <Typography 
+              component="span" 
+              className={styles.pokemonCard__statValue}
+            >
+              {stats.hp}
+            </Typography>
           </div>
         )}
-      </div>
+      </Box>
     </article>
   );
 };

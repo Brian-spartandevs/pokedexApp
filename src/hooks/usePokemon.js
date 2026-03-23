@@ -1,50 +1,38 @@
-import { useState, useEffect } from 'react';
-import { fetchPokemonList, fetchPokemonById } from '../services/pokeApi';
-import {
-  normalizePokemonListItem,
-  normalizePokeData,
-} from '../normalizers/pokemonNormalizer';
-import { POKEMON_PER_PAGE } from '../utils/constants';
+import { useQuery } from '@tanstack/react-query';
+import { getPokemonListWithDetails } from '../services/pokemonService';
 
 /**
- * Hook para obtener la lista paginada de Pokémon con sus detalles completos.
- * Responsabilidad: estado + fetch + normalización de la lista.
- *
+ * Hook para obtener la lista paginada de Pokémon con sus detalles completos usando TanStack Query.
+ * YA NO necesita useState ni useEffect - TanStack Query maneja todo.
+ * 
  * @param {number} page - Página actual (1-based)
- * @returns {{ pokemonList, loading, error, totalCount }}
+ * @returns {{
+ *   pokemonList: Array,
+ *   loading: boolean,
+ *   error: Error|null,
+ *   totalCount: number,
+ *   isLoading: boolean,
+ *   isError: boolean
+ * }}
  */
 export const usePokemon = (page) => {
-  const [pokemonList, setPokemonList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [totalCount, setTotalCount] = useState(0);
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['pokemon', 'list', page],
+    queryFn: () => getPokemonListWithDetails(page),
+    staleTime: 5 * 60 * 1000, // 5 minutos
+  });
 
-  useEffect(() => {
-    const loadPokemon = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const offset = (page - 1) * POKEMON_PER_PAGE;
-        const listData = await fetchPokemonList(offset, POKEMON_PER_PAGE);
-
-        // Extraer IDs para luego pedir detalles completos (tipos, stats)
-        const partialItems = listData.results.map(normalizePokemonListItem);
-        const details = await Promise.all(
-          partialItems.map((item) => fetchPokemonById(item.id))
-        );
-
-        setPokemonList(details.map(normalizePokeData));
-        setTotalCount(listData.count);
-      } catch (err) {
-        setError(err.message || 'Error cargando Pokémon');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadPokemon();
-  }, [page]);
-
-  return { pokemonList, loading, error, totalCount };
+  return {
+    pokemonList: data?.pokemonList || [],
+    totalCount: data?.totalCount || 0,
+    loading: isLoading, // Alias para compatibilidad con componentes existentes
+    isLoading, // TanStack Query estándar
+    error: isError ? error.message : null,
+    isError,
+  };
 };

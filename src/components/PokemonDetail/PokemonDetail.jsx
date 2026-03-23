@@ -1,8 +1,11 @@
+import { Typography, Button, Chip, Box, LinearProgress } from '@mui/material';
 import styles from './PokemonDetail.module.css';
 import { formatPokemonId, formatTypeColor, formatStatName } from '../../utils/formatters';
 
 /**
  * Vista de detalle completo de un Pokémon.
+ * Integración con Material UI v6 manteniendo estilos CSS propios.
+ * 
  * Responsabilidad: mostrar todos los datos y gestionar el evento de volver.
  *
  * @param {{ pokemon: Object, onBack: Function }}
@@ -12,90 +15,168 @@ const PokemonDetail = ({ pokemon, onBack }) => {
   const primaryColor = formatTypeColor(types[0]);
 
   return (
-    <div className={styles.pokemonDetail}>
-      <button className={styles.pokemonDetail__back} onClick={onBack}>
+    <Box className={styles.pokemonDetail}>
+      <Button 
+        className={styles.pokemonDetail__back} 
+        onClick={onBack}
+        variant="outlined"
+        size="small"
+      >
         ← Volver
-      </button>
+      </Button>
 
-      <div className={styles.pokemonDetail__card}>
+      <Box className={styles.pokemonDetail__card}>
         {/* Hero coloreado por tipo */}
-        <div
+        <Box
           className={styles.pokemonDetail__hero}
           style={{ background: `linear-gradient(145deg, ${primaryColor}dd, ${primaryColor}88)` }}
         >
           <div className={styles.pokemonDetail__heroBg} />
 
-          <div className={styles.pokemonDetail__header}>
-            <span className={styles.pokemonDetail__id}>{formatPokemonId(id)}</span>
-            <h1 className={styles.pokemonDetail__name}>{name}</h1>
-          </div>
+          <Box className={styles.pokemonDetail__header}>
+            <Typography 
+              component="span" 
+              className={styles.pokemonDetail__id}
+            >
+              {formatPokemonId(id)}
+            </Typography>
+            <Typography 
+              variant="h3" 
+              component="h1" 
+              className={styles.pokemonDetail__name}
+            >
+              {name}
+            </Typography>
+          </Box>
 
-          <div className={styles.pokemonDetail__types}>
+          <Box className={styles.pokemonDetail__types}>
             {types.map((type) => (
-              <span
+              <Chip
                 key={type}
+                label={type}
+                size="small"
                 className={styles.pokemonDetail__type}
-              >
-                {type}
-              </span>
+                sx={{
+                  color: 'white',
+                  borderColor: 'rgba(255, 255, 255, 0.35)',
+                  backdropFilter: 'blur(4px)',
+                }}
+              />
             ))}
-          </div>
+          </Box>
 
           <img
             className={styles.pokemonDetail__image}
             src={imageUrl}
             alt={name}
+            loading="lazy"
           />
-        </div>
+        </Box>
 
         {/* Cuerpo blanco */}
-        <div className={styles.pokemonDetail__body}>
-          <div className={styles.pokemonDetail__info}>
-            <div className={styles.pokemonDetail__infoItem}>
-              <span className={styles.pokemonDetail__infoLabel}>Altura</span>
-              <span className={styles.pokemonDetail__infoValue}>{height / 10} m</span>
-            </div>
-            <div className={styles.pokemonDetail__infoItem}>
-              <span className={styles.pokemonDetail__infoLabel}>Peso</span>
-              <span className={styles.pokemonDetail__infoValue}>{weight / 10} kg</span>
-            </div>
-            <div className={styles.pokemonDetail__infoItem}>
-              <span className={styles.pokemonDetail__infoLabel}>Tipos</span>
-              <span className={styles.pokemonDetail__infoValue}>{types.length}</span>
-            </div>
-          </div>
+        <Box className={styles.pokemonDetail__body}>
+          <Box className={styles.pokemonDetail__info}>
+            <Box className={styles.pokemonDetail__infoItem}>
+              <Typography 
+                component="span" 
+                className={styles.pokemonDetail__infoLabel}
+              >
+                Altura
+              </Typography>
+              <Typography 
+                component="span" 
+                className={styles.pokemonDetail__infoValue}
+              >
+                {height / 10} m
+              </Typography>
+            </Box>
+            <Box className={styles.pokemonDetail__infoItem}>
+              <Typography 
+                component="span" 
+                className={styles.pokemonDetail__infoLabel}
+              >
+                Peso
+              </Typography>
+              <Typography 
+                component="span" 
+                className={styles.pokemonDetail__infoValue}
+              >
+                {weight / 10} kg
+              </Typography>
+            </Box>
+            <Box className={styles.pokemonDetail__infoItem}>
+              <Typography 
+                component="span" 
+                className={styles.pokemonDetail__infoLabel}
+              >
+                Tipos
+              </Typography>
+              <Typography 
+                component="span" 
+                className={styles.pokemonDetail__infoValue}
+              >
+                {types.length}
+              </Typography>
+            </Box>
+          </Box>
 
-          <section className={styles.pokemonDetail__section}>
-            <h2 className={styles.pokemonDetail__sectionTitle}>Estadísticas</h2>
+          <Box component="section" className={styles.pokemonDetail__section}>
+            <Typography 
+              variant="h6" 
+              component="h2" 
+              className={styles.pokemonDetail__sectionTitle}
+            >
+              Estadísticas
+            </Typography>
             {Object.entries(stats).map(([statKey, value]) => (
-              <div key={statKey} className={styles.pokemonDetail__stat}>
-                <span className={styles.pokemonDetail__statName}>
+              <Box key={statKey} className={styles.pokemonDetail__stat}>
+                <Typography 
+                  component="span" 
+                  className={styles.pokemonDetail__statName}
+                >
                   {formatStatName(statKey)}
-                </span>
-                <span className={styles.pokemonDetail__statValue}>{value}</span>
-                <div className={styles.pokemonDetail__statBar}>
-                  <div
+                </Typography>
+                <Typography 
+                  component="span" 
+                  className={styles.pokemonDetail__statValue}
+                >
+                  {value}
+                </Typography>
+                <Box className={styles.pokemonDetail__statBar}>
+                  <Box
                     className={styles.pokemonDetail__statFill}
                     style={{ width: `${Math.min((value / 255) * 100, 100)}%` }}
                   />
-                </div>
-              </div>
+                </Box>
+              </Box>
             ))}
-          </section>
+          </Box>
 
-          <section className={styles.pokemonDetail__section}>
-            <h2 className={styles.pokemonDetail__sectionTitle}>Habilidades</h2>
-            <ul className={styles.pokemonDetail__abilities}>
+          <Box component="section" className={styles.pokemonDetail__section}>
+            <Typography 
+              variant="h6" 
+              component="h2" 
+              className={styles.pokemonDetail__sectionTitle}
+            >
+              Habilidades
+            </Typography>
+            <Box component="ul" className={styles.pokemonDetail__abilities}>
               {abilities.map((ability) => (
-                <li key={ability} className={styles.pokemonDetail__ability}>
-                  {ability}
-                </li>
+                <Chip
+                  key={ability}
+                  label={ability}
+                  component="li"
+                  size="small"
+                  className={styles.pokemonDetail__ability}
+                  variant="outlined"
+                  sx={{ textTransform: 'capitalize' }}
+                />
               ))}
-            </ul>
-          </section>
-        </div>
-      </div>
-    </div>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

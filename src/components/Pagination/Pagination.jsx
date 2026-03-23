@@ -1,3 +1,4 @@
+import { Button, Box } from '@mui/material';
 import styles from './Pagination.module.css';
 
 /**
@@ -15,6 +16,8 @@ const getVisiblePages = (currentPage, totalPages) => {
 
 /**
  * Controles de paginación con botones anterior, numerados y siguiente.
+ * Integración con Material UI v6 manteniendo estilos CSS propios.
+ * 
  * Responsabilidad: renderizar la navegación entre páginas.
  *
  * @param {{ currentPage: number, totalPages: number, onPageChange: Function }}
@@ -25,18 +28,24 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const isLastPage = currentPage === totalPages;
 
   return (
-    <nav className={styles.pagination} aria-label="Paginación de Pokémon">
-      <button
+    <Box 
+      component="nav" 
+      className={styles.pagination} 
+      aria-label="Paginación de Pokémon"
+    >
+      <Button
         className={`${styles.pagination__button} ${isFirstPage ? styles['pagination__button--disabled'] : ''}`}
         onClick={() => onPageChange(currentPage - 1)}
         disabled={isFirstPage}
         aria-label="Página anterior"
+        variant="text"
+        size="small"
       >
         ←
-      </button>
+      </Button>
 
       {visiblePages.map((page) => (
-        <button
+        <Button
           key={page}
           className={`${styles.pagination__button} ${
             page === currentPage ? styles['pagination__button--active'] : ''
@@ -44,20 +53,24 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           onClick={() => onPageChange(page)}
           aria-label={`Página ${page}`}
           aria-current={page === currentPage ? 'page' : undefined}
+          variant={page === currentPage ? 'contained' : 'text'}
+          size="small"
         >
           {page}
-        </button>
+        </Button>
       ))}
 
-      <button
+      <Button
         className={`${styles.pagination__button} ${isLastPage ? styles['pagination__button--disabled'] : ''}`}
         onClick={() => onPageChange(currentPage + 1)}
         disabled={isLastPage}
         aria-label="Página siguiente"
+        variant="text"
+        size="small"
       >
         →
-      </button>
-    </nav>
+      </Button>
+    </Box>
   );
 };
 
